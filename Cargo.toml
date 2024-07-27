@@ -19,4 +19,4 @@ aho-corasick = "1.0"
 bincode = "1"
 
 [features]
-protocol-asset = [ "tauri/protocol-asset" ]
+protocol-asset = ["tauri/protocol-asset"]
