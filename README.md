@@ -27,7 +27,7 @@ Install the Core plugin by adding the following to your `Cargo.toml` file:
 tauri-plugin-persisted-scope = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 ```
 
-## Usage
+## 🛠️ Usage
 
 First you need to register the core plugin with Tauri:
 
