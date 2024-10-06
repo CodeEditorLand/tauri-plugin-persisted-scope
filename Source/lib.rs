@@ -23,8 +23,7 @@ const SCOPE_STATE_FILENAME:&str = ".persisted-scope";
 // Most of these patterns are just added to try to fix broken files in the wild.
 // After a while we can hopefully reduce it to something like [r"[?]", r"[*]",
 // r"\\?\\\?\"]
-const PATTERNS:&[&str] =
-	&[r"[[]", r"[]]", r"[?]", r"[*]", r"\?\?", r"\\?\\?\", r"\\?\\\?\"];
+const PATTERNS:&[&str] = &[r"[[]", r"[]]", r"[?]", r"[*]", r"\?\?", r"\\?\\?\", r"\\?\\\?\"];
 const REPLACE_WITH:&[&str] = &[r"[", r"]", r"?", r"*", r"\?", r"\\?\", r"\\?\"];
 
 #[derive(Debug, thiserror::Error)]
@@ -55,19 +54,11 @@ fn fix_pattern(ac:&AhoCorasick, s:&str) -> String {
 	s
 }
 
-fn save_scopes<R:Runtime>(
-	app:&AppHandle<R>,
-	app_dir:&Path,
-	scope_state_path:&Path,
-) {
+fn save_scopes<R:Runtime>(app:&AppHandle<R>, app_dir:&Path, scope_state_path:&Path) {
 	let fs_scope = app.fs_scope();
 
 	let scope = Scope {
-		allowed_paths:fs_scope
-			.allowed_patterns()
-			.into_iter()
-			.map(|p| p.to_string())
-			.collect(),
+		allowed_paths:fs_scope.allowed_patterns().into_iter().map(|p| p.to_string()).collect(),
 		forbidden_patterns:fs_scope
 			.forbidden_patterns()
 			.into_iter()
