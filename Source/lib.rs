@@ -81,7 +81,9 @@ pub fn init<R:Runtime>() -> TauriPlugin<R> {
             let fs_scope = app.fs_scope();
             #[cfg(feature = "protocol-asset")]
             let asset_protocol_scope = app.asset_protocol_scope();
+
             let app = app.clone();
+
             let app_dir = app.path_resolver().app_data_dir();
 
             if let Some(app_dir) = app_dir {
@@ -100,6 +102,7 @@ pub fn init<R:Runtime>() -> TauriPlugin<R> {
                         .map_err(Error::from)
                         .and_then(|scope| bincode::deserialize(&scope).map_err(Into::into))
                         .unwrap_or_default();
+
                     for allowed in &scope.allowed_paths {
                         let allowed = fix_pattern(&ac, allowed);
 
@@ -107,6 +110,7 @@ pub fn init<R:Runtime>() -> TauriPlugin<R> {
                         #[cfg(feature = "protocol-asset")]
                         let _ = asset_protocol_scope.allow_file(&allowed);
                     }
+
                     for forbidden in &scope.forbidden_patterns {
                         let forbidden = fix_pattern(&ac, forbidden);
 
@@ -126,6 +130,7 @@ pub fn init<R:Runtime>() -> TauriPlugin<R> {
                     }
                 });
             }
+
             Ok(())
         })
         .build()
