@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 use std::{
-	fs::{create_dir_all, File},
+	fs::{File, create_dir_all},
 	io::Write,
 	path::Path,
 };
@@ -11,11 +11,11 @@ use std::{
 use aho_corasick::AhoCorasick;
 use serde::{Deserialize, Serialize};
 use tauri::{
-	plugin::{Builder, TauriPlugin},
 	AppHandle,
 	FsScopeEvent,
 	Manager,
 	Runtime,
+	plugin::{Builder, TauriPlugin},
 };
 
 const SCOPE_STATE_FILENAME:&str = ".persisted-scope";
